@@ -1,1 +1,36 @@
-PLACEHOLDER
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AP® Marvel Digital Exam</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top" class="top hidden"><strong>AP® MARVEL</strong><span id="section">SECTION I</span><span id="timer">75:00</span></header>
+<main id="app" class="wrap">
+<section id="start" class="card cover">
+<div class="eyebrow">Unofficial AP-style knowledge assessment</div>
+<h1>AP® Marvel Digital Exam</h1>
+<p class="sub">70 multiple-choice questions · 12 free-response questions · AP-style score estimate</p>
+<div class="notice"><strong>Note:</strong> This is a fan-made Marvel test, not an official College Board exam. Your final 1–5 result is an unofficial estimate.</div>
+<label class="field">Student name<input id="name" placeholder="Enter your name" maxlength="80"></label>
+<label class="check"><input id="timed" type="checkbox" checked> Use AP-style timers</label>
+<label class="check"><input id="honor" type="checkbox"> I will complete the test without outside references.</label>
+<div class="actions"><button id="startBtn" class="primary">Start Exam</button><button id="resumeBtn" class="hidden">Resume Attempt</button><button id="clearBtn" class="danger hidden">Clear Saved Attempt</button></div>
+<p class="small">Works on phones, tablets, and computers. Progress is saved on the device when browser storage is available.</p>
+</section>
+
+<section id="mcq" class="hidden examgrid">
+<aside class="card side"><div class="label">SECTION I</div><div id="progress">0 of 70 answered</div><div class="bar"><i id="bar"></i></div><div id="qgrid" class="qgrid"></div><button id="refsBtn">Show References</button><button id="firstBlankBtn">First Unanswered</button></aside>
+<section><div id="refs" class="card refs hidden"></div><article class="card question"><div id="qnum" class="label"></div><h2 id="qtext"></h2><div id="choices"></div><div class="nav"><button id="prev">Previous</button><button id="flag">Flag</button><button id="next" class="primary">Next</button><button id="submitMCQ" class="primary hidden">Submit Section I</button></div></article></section>
+</section>
+
+<section id="frq" class="hidden"><div class="card intro"><div class="label">SECTION II</div><h2>Free Response</h2><p>Question 1 is required. Select exactly four additional responses to count toward your score.</p><div id="frqStatus"></div></div><div id="frqList"></div><div class="card submit"><button id="submitFRQ" class="primary">Submit Section II</button></div></section>
+
+<section id="rubrics" class="hidden"><div class="card intro"><h2>Score Your Free Responses</h2><p>Use the rubric to assign 0–6 points to each selected response.</p></div><div id="rubricList"></div><div class="card submit"><button id="calc" class="primary">Calculate AP Score</button></div></section>
+
+<section id="results" class="hidden"><div class="card result"><div class="label">ESTIMATED AP SCORE</div><div id="ap" class="ap">5</div><h1 id="resultName"></h1><div class="metrics"><div><b id="mMCQ"></b><span>Multiple Choice</span></div><div><b id="mFRQ"></b><span>Free Response</span></div><div><b id="mComp"></b><span>Composite</span></div></div><p id="resultText"></p><div class="actions"><button id="copy">Copy Result</button><button id="restart" class="danger">Start New Attempt</button></div></div><div class="card"><h2>Multiple-Choice Review</h2><div id="mcqReview"></div></div><div class="card"><h2>Free-Response Scores</h2><div id="frqReview"></div></div></section>
+</main>
+<div id="modal" class="modal hidden"><div class="dialog"><h2 id="modalTitle"></h2><div id="modalBody"></div><div class="actions"><button id="modalCancel">Cancel</button><button id="modalOK" class="primary">Continue</button></div></div></div>
+<script src="data.js"></script><script src="app.js"></script>
+</body></html>
