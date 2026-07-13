@@ -1,1 +1,42 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#163f46"><title>AP Genshin Impact Digital Exam</title><style>body{margin:0;font-family:system-ui;background:#eef3f8;color:#132238;display:grid;place-items:center;min-height:100vh}main{background:white;padding:28px;border-radius:18px;box-shadow:0 10px 35px #0002;text-align:center;max-width:420px}.spin{width:42px;height:42px;border:5px solid #d6e2ec;border-top-color:#245f69;border-radius:50%;animation:s 1s linear infinite;margin:0 auto 18px}@keyframes s{to{transform:rotate(360deg)}}</style></head><body><main><div class="spin"></div><h2>Loading AP Genshin Exam…</h2><p>Please keep this tab open.</p></main><script>(async()=>{try{const files=['data/part0.txt','data/part1.txt','data/part2.txt'];const parts=await Promise.all(files.map(x=>fetch(x).then(r=>{if(!r.ok)throw Error(x);return r.text()})));const b=Uint8Array.from(atob(parts.join('')),c=>c.charCodeAt(0));const html=await new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'))).text();document.open();document.write(html);document.close()}catch(e){document.querySelector('main').innerHTML='<h2>Could not load the exam</h2><p>Refresh the page or open it in the latest Safari or Chrome.</p>'}})();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#163f46">
+<title>AP Genshin Impact Digital Exam</title>
+<style>
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#eef3f8;color:#132238;display:grid;place-items:center;min-height:100vh;padding:20px;box-sizing:border-box}main{background:#fff;padding:30px;border-radius:20px;box-shadow:0 12px 38px #0002;text-align:center;max-width:460px;width:100%;box-sizing:border-box}.spin{width:44px;height:44px;border:5px solid #d6e2ec;border-top-color:#245f69;border-radius:50%;animation:s 1s linear infinite;margin:0 auto 18px}@keyframes s{to{transform:rotate(360deg)}}button{border:0;border-radius:12px;background:#245f69;color:#fff;font-size:16px;font-weight:700;padding:13px 18px}p{line-height:1.5}.small{font-size:13px;color:#65727d;word-break:break-word}</style>
+<script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+</head>
+<body>
+<main id="loader"><div class="spin"></div><h2>Loading AP Genshin Exam…</h2><p>Please keep this tab open.</p></main>
+<script>
+(async function(){
+  const box=document.getElementById('loader');
+  try{
+    if(!window.pako) throw new Error('The compatibility library did not load.');
+    const files=['data/part0.txt','data/part1.txt','data/part2.txt'];
+    const parts=[];
+    for(const file of files){
+      const response=await fetch(file+'?v=2',{cache:'no-store'});
+      if(!response.ok) throw new Error('Could not download '+file+' ('+response.status+').');
+      parts.push((await response.text()).trim());
+    }
+    const joined=parts.join('');
+    const binary=atob(joined);
+    const bytes=new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
+    const html=window.pako.ungzip(bytes,{to:'string'});
+    if(!html||!html.includes('AP® Genshin Impact Digital Exam')) throw new Error('The exam data was incomplete.');
+    document.open();
+    document.write(html);
+    document.close();
+  }catch(error){
+    console.error(error);
+    box.innerHTML='<h2>Could not load the exam</h2><p>'+String(error.message||error)+'</p><p>Tap the button below to try again.</p><button onclick="location.reload()">Reload Exam</button><p class="small">Use Safari or Chrome with an internet connection.</p>';
+  }
+})();
+</script>
+</body>
+</html>
